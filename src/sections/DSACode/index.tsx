@@ -16,8 +16,8 @@ type DSAProps = {
 
 export const DSACode =  ({ files }: DSAProps) => {
   return (
-    <Tabs defaultValue={`file-0`} className="w-full align-center gap-8">
-      <TabsList >
+    <Tabs defaultValue={`file-0`} className="w-full items-center gap-8">
+      <TabsList>
         {files.map((file, index) => (
           <TabsTrigger key={index} value={`file-${index}`}>
             {file.label}
@@ -26,7 +26,7 @@ export const DSACode =  ({ files }: DSAProps) => {
       </TabsList>
 
         {files.map((file, index) => (
-            <TabsContent key={index} value={`file-${index}`}>
+            <TabsContent className="w-full" key={index} value={`file-${index}`}>
             <div className="mb-6 p-4 border rounded-lg bg-gray-800">
               {file.error ? (
                 <pre className="text-red-500">{file.error}</pre>
