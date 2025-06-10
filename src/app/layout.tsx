@@ -1,3 +1,4 @@
+import { NavBar } from "@/components/NavBar";
 import "@/styles/globals.css";
 
 import { type Metadata } from "next";
@@ -19,7 +20,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable}`}>
-      <body>{children}</body>
+      <body>
+        <NavBar />
+        {children}
+      </body>
     </html>
   );
 }
