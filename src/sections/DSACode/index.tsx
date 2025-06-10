@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export type FileType = {
@@ -16,7 +15,8 @@ type DSAProps = {
 
 export const DSACode =  ({ files }: DSAProps) => {
   return (
-    <Tabs defaultValue={`file-0`} className="w-full items-center gap-8">
+    <div> 
+    <Tabs defaultValue={`file-0`} className="w-full px-8 items-center gap-6">   
       <TabsList>
         {files.map((file, index) => (
           <TabsTrigger key={index} value={`file-${index}`}>
@@ -27,7 +27,7 @@ export const DSACode =  ({ files }: DSAProps) => {
 
         {files.map((file, index) => (
             <TabsContent className="w-full" key={index} value={`file-${index}`}>
-            <div className="mb-6 p-4 border rounded-lg bg-gray-800">
+            <div className="mb-6 p-4 border max-h-[50vh] overflow-auto rounded-lg bg-gray-800">
               {file.error ? (
                 <pre className="text-red-500">{file.error}</pre>
               ) : (
@@ -37,6 +37,6 @@ export const DSACode =  ({ files }: DSAProps) => {
             </TabsContent>
         ))}
     </Tabs>
-
+    </div>
   );
 }
