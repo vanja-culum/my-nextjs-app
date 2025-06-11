@@ -7,8 +7,11 @@ import { Input } from '@/components/ui/input';
 import { env } from '@/env';
 import { useForm } from 'react-hook-form';
 
+type BstGenerateDialogProps = {
+    onGenerate: (data: any) => void
+}
 
-export const BstGenerateDialog = () => {
+export const BstGenerateDialog = ({onGenerate}: BstGenerateDialogProps) => {
     const form = useForm({
         defaultValues: {
             nodeCount: 10,
@@ -20,20 +23,22 @@ export const BstGenerateDialog = () => {
 
     async function onSubmit(data: { nodeCount: number; levelDepth: number }) {
         console.log('Submitting data:', data);
-        const response = await fetch(env.NEXT_PUBLIC_API_BASE_URL + '/dsa/bst/generate', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-        if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.message || 'Failed to generate BST');
+        try {
+            const response = await fetch(env.NEXT_PUBLIC_API_BASE_URL + '/dsa/bst/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+            console.log('Response from server:', result);
+            onGenerate(result)
+        } catch (error) {
+            console.log('error', error);
         }
-        const result = await response.json();
-        console.log('Generated BST:', result);
-        // Handle the result as needed, e.g., update state or notify user
+        
     }
 
 

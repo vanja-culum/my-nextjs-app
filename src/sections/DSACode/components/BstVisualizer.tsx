@@ -23,10 +23,16 @@ const initialNodes: Node[] = [
   { id: '3', draggable: false, position: { x: 100, y: 100 }, data: { label: '3' } },
 ];
 
-const initialEdges: Edge[] = [{ id: 'e1-2', source: '1', target: '2' }, {
-  id: 'e1-3',
-  source: '1',
-  target: '3',
+const initialEdges: Edge[] = [
+  { 
+      id: 'e1-2', 
+      source: '1', 
+      target: '2' 
+  }, 
+  {
+    id: 'e1-3',
+    source: '1',
+    target: '3',
 }];
 
 
@@ -36,6 +42,11 @@ export const BstVisualizer = () => {
 
   const onConnect = useCallback<OnConnect>((params) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
 
+  const onGenerate = useCallback(data => {
+    console.log('data', data);
+    setNodes(data.nodes)
+    setEdges(data.edges)
+  })
 
   return <div className='container flex-col gap-8 my-16 h-[56rem]'>
     <Heading className='text-center mb-8'>
@@ -50,7 +61,7 @@ export const BstVisualizer = () => {
     </Paragraph>
 
     <div className='flex gap-4 my-4'>
-      <BstGenerateDialog />
+      <BstGenerateDialog onGenerate={onGenerate} />
     </div>
     <ReactFlow
       fitView
